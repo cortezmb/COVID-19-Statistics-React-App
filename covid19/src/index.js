@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './CovidStats';
+import CovidStats from './CovidStats';
 
 ReactDOM.render(
   <React.StrictMode>

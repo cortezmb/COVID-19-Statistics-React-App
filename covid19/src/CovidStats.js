@@ -5,16 +5,16 @@ class CovidStats extends Component {
     //this function will call instance variables
     constructor() {
 
-        //this function will call on base class
+        //This function will call on base class
         super(); 
         
         //This is an instance variable that is an object date structure called state
-        this.state({
+        this.state = {
 
             //There are 2 pieces of object state: an array which will display data and search results
-            data: [],
+            statistics: [],
             searchResults: ""
-        })
+        }
     }
 
     //This is a lifecylce method that will get called once automatically by React framework in order to get the API data
@@ -30,34 +30,68 @@ class CovidStats extends Component {
         //This will convert the API data to a JSON format
         let results = await response.json();
 
+        console.log(results)
         //This will store the JSON data named "results" in state and replace current value of articles with results of articles
         this.setState({
 
-            articles: results.articles
+            statistics: results
+            // statistics: results.statistics
         }, () => {
 
             //This a call back function for state
-            console.log(this.state.articles)
+            console.log(this.state.statistics)
         })
 
     }
 
-  render() {
+        handleChange = (e) => {
 
-    //This variable is an array that will be created by looping through the articles via map method and create new arrays of desired keys in order to display unique list items
-    let articleList = this.articles.map((articles, index) => {
+            this.setState({
 
-        return <li key={index}>
-            <h2>{articles.state}</h2>
-        </li>
+                searchResults: e.target.value
+            })
     }
 
-    return (
-      <>
-        
-      </>
-    )
-  }
+    render() {
+
+        //This will de-structure the state object into variables in order to elimante long code i.e. this.stat.statistics
+        let {statistics, searchResults} = {...this.state};
+
+        //This will filter through the mapped array and if true will create a new array. It will make the search and result letters lowercase to eliminate case sensitivity 
+        let filteredList = statistics.filter(statistic => {
+
+            return statistic.state.toLowerCase().includes(searchResults.toLowerCase())
+        })
+
+        //This variable is an array that will be created by looping through the filterList via map method and create new arrays of desired keys in order to display unique list items
+        let statisticList = filteredList.map((statistic, index) => {
+
+            return <div key={index}>
+                        <h2>State: {statistic.state}</h2>
+                        <ul>
+                            <li>Cases: {statistic.cases}</li>
+                            <li>{statistic.todayCases}</li>
+                            <li>{statistic.deaths}</li>
+                            <li>{statistic.todayDeaths}</li>
+                            <li>{statistic.active}</li>
+                            <li>{statistic.casesPerOneMillion}</li>
+                            <li>{statistic.deathsPerOneMillion}</li>
+                            <li>{statistic.tests}</li>
+                            <li>{statistic.testsPerOneMillion}</li>
+                        </ul>
+                    </div>
+        })
+
+        console.log("rendered component");
+        return (
+        <>
+            {/* This input field will invoke the function. If this.handleChange() was used it would invoke automatically */}
+            <input type="text" onChange={this.handleChange}/>
+            
+            {statisticList}
+        </>
+        )
+    }
 }
 
 export default CovidStats
