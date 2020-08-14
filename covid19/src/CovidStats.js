@@ -70,14 +70,14 @@ class CovidStats extends Component {
                         <h2>State: {statistic.state}</h2>
                         <ul>
                             <li>Cases: {statistic.cases}</li>
-                            <li>{statistic.todayCases}</li>
-                            <li>{statistic.deaths}</li>
-                            <li>{statistic.todayDeaths}</li>
-                            <li>{statistic.active}</li>
-                            <li>{statistic.casesPerOneMillion}</li>
-                            <li>{statistic.deathsPerOneMillion}</li>
-                            <li>{statistic.tests}</li>
-                            <li>{statistic.testsPerOneMillion}</li>
+                            <li>Cases Today: {statistic.todayCases}</li>
+                            <li>Deaths: {statistic.deaths}</li>
+                            <li>Deaths Today: {statistic.todayDeaths}</li>
+                            <li>Active Cases: {statistic.active}</li>
+                            <li>Cases per One Million: {statistic.casesPerOneMillion}</li>
+                            <li>Deaths per One Million: {statistic.deathsPerOneMillion}</li>
+                            <li>Total number of tests: {statistic.tests}</li>
+                            <li>Tests per One Million: {statistic.testsPerOneMillion}</li>
                         </ul>
                     </div>
         })
